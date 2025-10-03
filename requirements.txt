@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-dotenv
+requests
+openai>=1.0.0
+llama-index
+pandas
+pypdf
