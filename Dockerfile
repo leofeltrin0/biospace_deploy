@@ -1,44 +1,48 @@
-# NASA Space Apps Hackathon MVP - Space Mission Knowledge Engine
-# Dockerfile for containerized deployment
+# Base moderna suportada
+FROM python:3.11-slim-bookworm
 
-FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# Só o essencial; remova software-properties-common e build-essential
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        curl \
+        ca-certificates \
+        git \
+    ; \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+# Cache melhor: requirements primeiro
 COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Download spaCy model
+# (Opcional) Baixar modelo spaCy; se preferir, pinne via pip:
+#   adicione "en-core-web-sm==3.7.1" no requirements.txt
 RUN python -m spacy download en_core_web_sm
 
-# Copy application code
+# Código
 COPY . .
 
-# Create necessary directories
+# Pastas necessárias
 RUN mkdir -p logs data/processed data/vectorstore data/kg_store
 
-# Set environment variables
-ENV PYTHONPATH=/app
-ENV PYTHONUNBUFFERED=1
+# Render define $PORT em runtime; mantenha um default local
+ENV PORT=8000
 
-# Expose port
+# Expose (apenas informativo no Render)
 EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+# Healthcheck usando $PORT
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD curl -fsS "http://localhost:${PORT}/health" || exit 1
 
-# Default command
-CMD ["python", "main.py", "--mode", "serve"]
+# Se você tem FastAPI com `app` em main.py, use uvicorn:
+# CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
+
+# Caso contrário (se o seu servidor é `python main.py --mode serve`), use:
+CMD ["sh", "-c", "python main.py --mode serve"]
