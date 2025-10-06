@@ -1,0 +1,110 @@
+# NASA Space Apps Hackathon MVP Configuration
+# Space Mission Knowledge Engine
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+  cors_origins: ["http://localhost:3000", "http://localhost:5173"]
+
+# OpenAI Configuration
+openai:
+  api_key: "${OPENAI_API_KEY}"
+  model: "gpt-4o-mini"
+  temperature: 0.7
+  max_tokens: 2000
+
+# PDF Processing Configuration
+pdf_processing:
+  input_dir: "./data"
+  output_dir: "./data/processed"
+  supported_formats: [".pdf"]
+  text_cleaning:
+    remove_headers_footers: true
+    remove_figure_captions: true
+    normalize_whitespace: true
+    min_text_length: 50
+
+# Chunking Configuration
+chunking:
+  chunk_size: 800
+  chunk_overlap: 100
+  separators: ["\n\n", "\n", ".", "!", "?", ";", " "]
+  metadata_fields: ["document_id", "chunk_index", "source"]
+
+# Embeddings Configuration
+embeddings:
+  model_name: "BAAI/bge-small-en-v1.5"
+  cache_dir: "./data/embeddings_cache"
+  batch_size: 32
+  max_length: 512
+
+# Vector Store Configuration
+vectorstore:
+  backend: "faiss"  # Options: faiss, chroma
+  persist_dir: "./data/vectorstore"
+  index_name: "space_biology_index"
+  similarity_metric: "cosine"
+
+# Knowledge Graph Configuration
+kg_extraction:
+  models:
+    ner: "en_core_web_sm"  # spaCy model
+    relation_extraction: "openai"  # Options: openai, spacy, transformers
+  entity_types: ["ORGANISM", "EXPERIMENT", "MISSION", "OUTCOME", "TECHNIQUE", "CONDITION"]
+  relation_types: ["AFFECTS", "CAUSES", "MEASURES", "OCCURS_IN", "RESULTS_IN"]
+  confidence_threshold: 0.7
+
+# Knowledge Graph Storage
+kg_store:
+  backend: "networkx"  # Options: networkx, neo4j
+  persist_dir: "./data/kg_store"
+  formats: ["graphml", "json"]
+
+# Mission Engine Configuration
+mission_engine:
+  rag:
+    similarity_top_k: 5
+    rerank: true
+  synthesis:
+    max_context_length: 4000
+    include_sources: true
+
+# Adaptive Generator Configuration
+adaptive_generator:
+  user_profiles: ["scientist", "manager", "layperson"]
+  tone_classification:
+    model: "openai"
+    confidence_threshold: 0.6
+  prompt_templates:
+    scientist: "templates/scientist_prompt.txt"
+    manager: "templates/manager_prompt.txt"
+    layperson: "templates/layperson_prompt.txt"
+  prompt_engineering:
+    reference_extraction: true
+    theme_classification: true
+    structured_output: true
+    themes: ["biotechnology", "neuroscience", "biochemistry", "ecology", "microbiology", "genetics"]
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "./logs/space_mission_engine.log"
+  max_size: "10MB"
+  backup_count: 5
+
+# Data Processing Configuration
+data_processing:
+  batch_size: 10
+  max_workers: 4
+  retry_attempts: 3
+  timeout: 300
+
+# Performance Configuration
+performance:
+  enable_caching: true
+  cache_ttl: 3600  # seconds
+  memory_limit: "2GB"
+  gpu_enabled: false

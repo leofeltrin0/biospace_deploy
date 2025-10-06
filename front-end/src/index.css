@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-main {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5)), url('./assets/background.jpeg');
+  background-size: cover;
+}
+
+.bg-book {
+  background-image: url('./assets/book.jpg');
+}
+
+.exo-2-regular {
+  font-family: "Exo 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.exo-2-bold {
+  font-family: "Exo 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.selected-book {
+  border-color: #ffa50075;
+}
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 220 40% 8%;
+    --foreground: 210 100% 95%;
+
+    --card: 220 35% 12%;
+    --card-foreground: 210 100% 95%;
+
+    --popover: 220 35% 12%;
+    --popover-foreground: 210 100% 95%;
+
+    --primary: 210 100% 60%;
+    --primary-foreground: 220 40% 8%;
+
+    --secondary: 210 80% 40%;
+    --secondary-foreground: 210 100% 95%;
+
+    --muted: 220 30% 20%;
+    --muted-foreground: 210 20% 60%;
+
+    --accent: 150 70% 50%;
+    --accent-foreground: 220 40% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 100% 95%;
+
+    --border: 220 30% 20%;
+    --input: 220 30% 20%;
+    --ring: 210 100% 60%;
+
+    --radius: 0.75rem;
+
+    /* Space theme gradients */
+    --gradient-space: linear-gradient(180deg, hsl(220 40% 8%) 0%, hsl(220 50% 15%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220 35% 12% / 0.8) 0%, hsl(220 35% 8% / 0.6) 100%);
+    --glow-primary: 0 0 20px hsl(210 100% 60% / 0.3);
+    --glow-accent: 0 0 20px hsl(150 70% 50% / 0.3);
+
+    --sidebar-background: 220 35% 12%;
+    --sidebar-foreground: 210 100% 95%;
+    --sidebar-primary: 210 100% 60%;
+    --sidebar-primary-foreground: 220 40% 8%;
+    --sidebar-accent: 220 30% 20%;
+    --sidebar-accent-foreground: 210 100% 95%;
+    --sidebar-border: 220 30% 20%;
+    --sidebar-ring: 210 100% 60%;
+  }
+
+  .dark {
+    --background: 220 40% 8%;
+    --foreground: 210 100% 95%;
+
+    --card: 220 35% 12%;
+    --card-foreground: 210 100% 95%;
+
+    --popover: 220 35% 12%;
+    --popover-foreground: 210 100% 95%;
+
+    --primary: 210 100% 60%;
+    --primary-foreground: 220 40% 8%;
+
+    --secondary: 210 80% 40%;
+    --secondary-foreground: 210 100% 95%;
+
+    --muted: 220 30% 20%;
+    --muted-foreground: 210 20% 60%;
+
+    --accent: 150 70% 50%;
+    --accent-foreground: 220 40% 8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 100% 95%;
+
+    --border: 220 30% 20%;
+    --input: 220 30% 20%;
+    --ring: 210 100% 60%;
+    
+    --sidebar-background: 220 35% 12%;
+    --sidebar-foreground: 210 100% 95%;
+    --sidebar-primary: 210 100% 60%;
+    --sidebar-primary-foreground: 220 40% 8%;
+    --sidebar-accent: 220 30% 20%;
+    --sidebar-accent-foreground: 210 100% 95%;
+    --sidebar-border: 220 30% 20%;
+    --sidebar-ring: 210 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: var(--gradient-space);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: var(--gradient-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .glass-card-white {
+    background: white;
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+  
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+  
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-scroll {
+    animation: scroll 15s linear infinite;
+  }
+  
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+}

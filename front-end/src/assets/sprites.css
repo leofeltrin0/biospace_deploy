@@ -1,0 +1,48 @@
+/* Sprite CSS para 29 objetos celestes em objects.png
+   Supondo que cada objeto tem 100x100px e estão alinhados horizontalmente. Ajuste os valores conforme o real tamanho. */
+.sprite-lg {
+  width: 1365px;
+  height: 819px;
+  background-image: url('../assets/objects.png');
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.sprite-sm {
+  width: 341px;
+  height: 409px;
+  background-image: url('../assets/objects.png');
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+/* grandes: */
+.sprite-1  { background-position: 0px    -0px; }
+.sprite-2  { background-position: 1365px    -0px; }
+.sprite-3  { background-position: 2730px    -0px; }
+.sprite-4  { background-position: 0px  -819px; }
+.sprite-5  { background-position: 1365px  -819px; }
+.sprite-6  { background-position: 2730px  -819px; }
+.sprite-7  { background-position: 0px -1638px; }
+.sprite-8  { background-position: 1365px -1638px; }
+.sprite-9  { background-position: 2730px -1638px; }
+.sprite-10 { background-position: 0px -2457px; }
+/* pequenos: */
+.sprite-11 { background-position: 1705px -3272px; }
+.sprite-12 { background-position: 2046px -3272px; }
+.sprite-13 { background-position: 2387px -3272px; }
+.sprite-14 { background-position: 2728px -3272px; }
+.sprite-15 { background-position: 3069px -3272px; }
+.sprite-16 { background-position: 3410px -3272px; }
+.sprite-17 { background-position: 3751px -3272px; }
+/**/
+.sprite-18 { background-position: 0px -3681px; }
+.sprite-19 { background-position: 341px -3681px; }
+.sprite-20 { background-position: 682px -3681px; }
+.sprite-21 { background-position: 1023px -3681px; }
+.sprite-22 { background-position: 1364px -3681px; }
+.sprite-23 { background-position: 1705px -3681px; }
+.sprite-24 { background-position: 2046px -3681px; }
+.sprite-25 { background-position: 2387px -3681px; }
+.sprite-26 { background-position: 2728px -3681px; }
+.sprite-27 { background-position: 3069px -3681px; }
+.sprite-28 { background-position: 3410px -3681px; }
+.sprite-29 { background-position: 3751px -3681px; }
